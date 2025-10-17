@@ -134,4 +134,3 @@ src/
 
 **Mohamed Tobal**
 [mohamedtobal.dev@gmail.com](mailto:mohamedtobal.dev@gmail.com)
-[Live Demo](https://fly-safely.netlify.app/)
