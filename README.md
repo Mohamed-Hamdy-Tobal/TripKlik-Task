@@ -1,6 +1,6 @@
-# ✈️ TripKlik
+#  TripKlik
 
-TripKlik is a modern flight booking frontend application built with **React + Vite**, using **Tailwind CSS**, **React Query**, and **Zustand** for state management.  
+TripKlik is a modern flight booking frontend application built with **React + Vite**, using **Tailwind CSS**, **React Query**, and **Zustand** for state management.
 It simulates flight data using a **local JSON server** and supports multilingual interfaces via **i18next**.
 
 ---
@@ -8,33 +8,35 @@ It simulates flight data using a **local JSON server** and supports multilingual
 ## Tech Stack
 
 **Frontend:**
-- [React 19](https://react.dev/)
-- [Vite 7](https://vitejs.dev/)
-- [Tailwind CSS 4](https://tailwindcss.com/)
-- [i18next](https://www.i18next.com/) for internationalization
-- [Lucide React](https://lucide.dev/) for icons
-- [Zustand](https://github.com/pmndrs/zustand) for global state management
-- [React Query (TanStack)](https://tanstack.com/query/latest) for data fetching
-- [React Hook Form](https://react-hook-form.com/) with [Zod](https://zod.dev/) validation
-- [React Hot Toast](https://react-hot-toast.com/) for notifications
+
+* [React 19](https://react.dev/)
+* [Vite 7](https://vitejs.dev/)
+* [Tailwind CSS 4](https://tailwindcss.com/)
+* [i18next](https://www.i18next.com/) for internationalization
+* [Lucide React](https://lucide.dev/) for icons
+* [Zustand](https://github.com/pmndrs/zustand) for global state management
+* [React Query (TanStack)](https://tanstack.com/query/latest) for data fetching
+* [React Hook Form](https://react-hook-form.com/) with [Zod](https://zod.dev/) validation
+* [React Hot Toast](https://react-hot-toast.com/) for notifications
 
 **Development Tools:**
-- [ESLint](https://eslint.org/) + [Prettier](https://prettier.io/)
-- [Concurrently](https://www.npmjs.com/package/concurrently) for running frontend and local server together
-- [JSON Server](https://github.com/typicode/json-server) for local API mocking
+
+* [ESLint](https://eslint.org/) + [Prettier](https://prettier.io/)
+* [Concurrently](https://www.npmjs.com/package/concurrently) for running frontend and local server together
+* [JSON Server](https://github.com/typicode/json-server) for local API mocking
 
 ---
 
 ## Features
 
-- Browse and view flights and fare families
-- Select and review trip fares dynamically
-- Multilingual interface support (powered by i18next)
-- Local API mock server for testing data
-- Persistent state management with Zustand
-- Client-side validation using Zod
-- Fully responsive modern UI using Tailwind CSS
-- Error handling and fallback page
+* Browse and view flights and fare families
+* Select and review trip fares dynamically
+* Multilingual interface support (powered by i18next)
+* Local API mock server for testing data
+* Persistent state management with Zustand
+* Client-side validation using Zod
+* Fully responsive modern UI using Tailwind CSS
+* Error handling and fallback page
 
 ---
 
@@ -45,7 +47,7 @@ It simulates flight data using a **local JSON server** and supports multilingual
 ```bash
 git clone https://github.com/Mohamed-Hamdy-Tobal/TripKlik-Task.git
 cd TripKlik-Task
-````
+```
 
 ### Install dependencies
 
@@ -80,7 +82,7 @@ The mock data lives in:
 src/mock/db.json
 ```
 
-You can customize this file to modify the local data for testing 
+You can customize this file to modify the local data for testing.
 
 ---
 
@@ -124,10 +126,12 @@ src/
  ┣ utils/             # General utility functions (formatters, helpers)
  ┣ index.css          # Global Tailwind CSS and base styles
  ┗ main.jsx           # Vite main entry point (renders <App />)
+```
+
 ---
 
 ## Author
 
 **Mohamed Tobal**
-[[mohamedtobal.dev@gmail.com](mailto:mohamedtobal.dev@gmail.com)]
+[mohamedtobal.dev@gmail.com](mailto:mohamedtobal.dev@gmail.com)
 [Live Demo](https://fly-safely.netlify.app/)
