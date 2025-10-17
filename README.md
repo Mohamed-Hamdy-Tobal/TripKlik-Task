@@ -13,7 +13,6 @@ It simulates flight data using a **local JSON server** and supports multilingual
 * [Vite 7](https://vitejs.dev/)
 * [Tailwind CSS 4](https://tailwindcss.com/)
 * [i18next](https://www.i18next.com/) for internationalization
-* [Lucide React](https://lucide.dev/) for icons
 * [Zustand](https://github.com/pmndrs/zustand) for global state management
 * [React Query (TanStack)](https://tanstack.com/query/latest) for data fetching
 * [React Hook Form](https://react-hook-form.com/) with [Zod](https://zod.dev/) validation
