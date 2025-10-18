@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { queryConfig } from "@/config/queryClient";
 import api from "@/lib/api";
+import { config } from "@/config/config";
 
 export const useGetTripFares = (query) => {
   const {
@@ -12,6 +13,7 @@ export const useGetTripFares = (query) => {
   } = useQuery({
     queryKey: ["tripFares", query],
     queryFn: () => api.get("/tripFares", query),
+    enabled: config?.is_dev,
     ...queryConfig.staticData,
   });
 
@@ -28,6 +30,7 @@ export const useGetAvailableCombinations = (query) => {
   } = useQuery({
     queryKey: ["availableCombinations", query],
     queryFn: () => api.get("/availableCombinations", query),
+    enabled: config?.is_dev,
     ...queryConfig.staticData,
   });
 
@@ -44,6 +47,7 @@ export const useGetItineraries = (query) => {
   } = useQuery({
     queryKey: ["itineraries", query],
     queryFn: () => api.get("/itineraries", query),
+    enabled: config?.is_dev,
     ...queryConfig.staticData,
   });
 
