@@ -6,12 +6,14 @@ const SuccessConfirm = ({ passengers = [], currentItinerary = {}, selectedFares 
   const { t } = useTranslation();
   const navigate = useNavigate();
 
+  const totalPaid = Object.values(selectedFares)
+    .reduce((sum, fare) => sum + (fare?.starts_from_price || 0), 0)
+    .toFixed(2);
+
   const passenger = passengers[0] || {};
   const bookingRef = currentItinerary?.id || "987654";
-  const totalPaid = currentItinerary?.passengers?.[0]?.prices?.total?.toFixed(2) || "999.99";
+  const totalPaidItinerary = currentItinerary?.passengers?.[0]?.prices?.total?.toFixed(2) || "999.99";
   const segmentCount = Object.keys(selectedFares).length || 1;
-
-  console.log("segmentCount : ", segmentCount);
 
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 py-10">
@@ -41,7 +43,7 @@ const SuccessConfirm = ({ passengers = [], currentItinerary = {}, selectedFares 
             <div>
               <p className="text-xs sm:text-sm text-gray-600 mb-1">{t("Total Paid")}</p>
               <p className="text-base sm:text-lg font-bold text-green-600">
-                {t("AED")} {totalPaid}
+                {t("AED")} {totalPaid || totalPaidItinerary}
               </p>
             </div>
 
