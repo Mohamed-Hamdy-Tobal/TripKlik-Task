@@ -1,4 +1,4 @@
-export const data = {
+export const STATIC_DATA = {
   tripFares: [
     {
       trip_index: 0,
