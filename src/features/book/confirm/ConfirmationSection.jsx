@@ -8,6 +8,10 @@ import PriceSummary from "./PriceSummary";
 import CustomButton from "@/components/common/button/Button";
 import { Button } from "@/components/ui/button";
 import { errorToast } from "@/components/common/toast";
+import { config } from "@/config/config";
+import { STATIC_DATA } from "@/data/staticData";
+import StatusMessage from "@/components/feedback/StatusMessage";
+import { ConfirmSkeleton } from "@/components/loading/ConfirmSkeleton";
 
 export const ConfirmSection = ({ onBack }) => {
   const {
@@ -15,7 +19,10 @@ export const ConfirmSection = ({ onBack }) => {
     i18n: { language },
   } = useTranslation();
   const { selectedFares, currentItinerary, passengers } = useBookingStore();
-  const { tripFares } = useGetTripFares();
+  const { is_dev } = config;
+  const { tripFares: apiTripFares = [], isLoading: faresLoading, error: faresError } = useGetTripFares();
+
+  const tripFares = is_dev ? apiTripFares : STATIC_DATA.tripFares;
 
   const [paymentData, setPaymentData] = useState({
     cardNumber: "",
@@ -30,7 +37,7 @@ export const ConfirmSection = ({ onBack }) => {
   const getFlightDetails = (tripIndex) => {
     const fare = selectedFares[tripIndex];
     if (!fare) return null;
-    return tripFares.find((t) => t.fareFamilies.some((f) => f.itinerary_id === fare.itinerary_id));
+    return tripFares?.find((t) => t.fareFamilies.some((f) => f.itinerary_id === fare.itinerary_id));
   };
 
   const handlePayment = () => {
@@ -47,12 +54,20 @@ export const ConfirmSection = ({ onBack }) => {
     }, 2000);
   };
 
+  if (faresLoading && is_dev) return <ConfirmSkeleton />;
+
+  if (faresError && is_dev)
+    return <StatusMessage variant="error" message="Failed to load flight data. Please try again." />;
+
+  if (!tripFares.length)
+    return <StatusMessage variant="warning" message="No flight fares available for the selected criteria." />;
+
   if (isConfirmed) {
     return <SuccessConfirm passengers={passengers} currentItinerary={currentItinerary} selectedFares={selectedFares} />;
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
+    <div className="min-h-screen py-8">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2 space-y-6">

@@ -9,19 +9,37 @@ import { useTranslation } from "react-i18next";
 import { Button } from "@/components/common";
 import { getValidFareIds } from "@/utils/getValidFareIds";
 import { errorToast } from "@/components/common/toast";
+import { config } from "@/config/config";
+import { STATIC_DATA } from "@/data/staticData";
 
 const SelectFlightSection = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const { is_dev } = config;
+
+  console.log("is_dev", is_dev);
 
   const { searchParams, selectedFares, selectFareForTrip, getCombinationKey, setCurrentItinerary } = useBookingStore();
 
   const tripType = searchParams?.tripType || "oneway";
-  const { tripFares = [], isLoading: faresLoading, error: faresError } = useGetTripFares();
-  const { availableCombinations = {}, isLoading: combosLoading } = useGetAvailableCombinations();
-  const { itineraries = [], isLoading: itinerariesLoading } = useGetItineraries();
 
-  const isLoading = faresLoading || combosLoading || itinerariesLoading;
+  const { tripFares: apiTripFares = [], isLoading: faresLoading, error: faresError } = useGetTripFares();
+
+  const { availableCombinations: apiAvailableCombinations = {}, isLoading: combosLoading } =
+    useGetAvailableCombinations();
+
+  const { itineraries: apiItineraries = [], isLoading: itinerariesLoading } = useGetItineraries();
+
+  const tripFares = is_dev ? apiTripFares : STATIC_DATA.tripFares;
+  const availableCombinations = is_dev ? apiAvailableCombinations : STATIC_DATA.availableCombinations;
+  const itineraries = is_dev ? apiItineraries : STATIC_DATA.itineraries;
+
+  // If using static data, no loading states
+  const isLoading = is_dev ? faresLoading || combosLoading || itinerariesLoading : false;
+
+  console.log("tripFares  : ", tripFares);
+  console.log("isLoading  : ", isLoading);
+  console.log("faresError  : ", faresError);
 
   const groupedTrips = useMemo(() => {
     return tripFares.reduce((acc, trip) => {

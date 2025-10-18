@@ -18,6 +18,10 @@ import { useGetTripFares } from "@/hooks/services/tripFares";
 import useBookingStore from "@/store/bookingStore";
 import FlightDetailsCard from "./FlightDetailsCard";
 import PriceBreakdownCard from "./PriceBreakdownCard";
+import { config } from "@/config/config";
+import { STATIC_DATA } from "@/data/staticData";
+import StatusMessage from "@/components/feedback/StatusMessage";
+import { ReviewSkeleton } from "@/components/loading/ReviewSkeleton";
 
 const passengerSchema = z.object({
   firstName: z.string().min(2, "First name is required"),
@@ -33,7 +37,10 @@ export const ReviewSection = ({ onNext }) => {
     i18n: { language },
   } = useTranslation();
   const navigate = useNavigate();
-  const { tripFares } = useGetTripFares();
+  const { is_dev } = config;
+  const { tripFares: apiTripFares = [], isLoading: faresLoading, error: faresError } = useGetTripFares();
+
+  const tripFares = is_dev ? apiTripFares : STATIC_DATA.tripFares;
   const { selectedFares, currentItinerary, setPassengers, passengers } = useBookingStore();
 
   const form = useForm({
@@ -57,6 +64,14 @@ export const ReviewSection = ({ onNext }) => {
     setPassengers([data]);
     onNext();
   };
+
+  if (faresLoading && is_dev) return <ReviewSkeleton />;
+
+  if (faresError && is_dev)
+    return <StatusMessage variant="error" message="Failed to load flight data. Please try again." />;
+
+  if (!tripFares.length)
+    return <StatusMessage variant="warning" message="No flight fares available for the selected criteria." />;
 
   return (
     <div className="min-h-screen bg-gray-50 ">
